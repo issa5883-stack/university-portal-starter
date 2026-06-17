@@ -18,3 +18,31 @@
 
     TODO: build the component here.
 --}}
+@props([
+    'label' => '',
+    'name',
+    'type' => 'text',
+    'value' => '',
+    'placeholder' => '',
+    'required' => false,
+])
+
+<div class="mb-3">
+    <label for="{{ $name }}" class="form-label fw-semibold text-secondary">
+        {{ $label }}
+    </label>
+    <input
+        type="{{ $type }}"
+        name="{{ $name }}"
+        id="{{ $name }}"
+        value="{{ old($name, $value) }}"
+        placeholder="{{ $placeholder }}"
+        @if($required) required @endif
+        class="form-control rounded-3 border-0 shadow-sm @error($name) is-invalid @enderror"
+        style="background:#f8fafc; padding: 10px 14px;"
+        {{ $attributes }}
+    >
+    @error($name)
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>

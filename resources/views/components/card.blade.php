@@ -13,3 +13,17 @@
 
     TODO: build the component here.
 --}}
+@props(['title' => ''])
+
+<div class="page-card">
+    @if($title)
+        <div class="page-card-header">
+            <h5>
+                <i class="bi bi-building me-2"></i>{{ $title }}
+            </h5>
+        </div>
+    @endif
+    <div class="page-card-body">
+        {{ $slot }}
+    </div>
+</div>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EnrollmentController;
@@ -37,4 +38,19 @@ use Illuminate\Support\Facades\Route;
 |     // Route::resource('departments', DepartmentController::class)->except('show');
 */
 
-// TODO: write your routes below this line.
+// Auth routes
+Route::get('/login',    [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login',   [AuthController::class, 'login']);
+Route::post('/logout',  [AuthController::class, 'logout'])->name('logout');
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+Route::post('/register',[AuthController::class, 'register']);
+
+// App routes
+Route::get('/', function () {
+    return redirect()->route('departments.index');
+});
+Route::resource('departments', DepartmentController::class)->except('show');
+Route::resource('students', StudentController::class)->except('show');
+Route::resource('courses', CourseController::class)->except('show');
+Route::resource('professors', ProfessorController::class)->except('show');
+Route::resource('enrollments', EnrollmentController::class)->except('show');    
