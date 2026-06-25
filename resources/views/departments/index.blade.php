@@ -79,17 +79,7 @@
                                  <i class="bi bi-pencil-fill me-1"></i> Edit {{-- أيقونة قلم مع كلمة تعديل --}}
                              </x-button>
 
-                             {{-- 9. نموذج (Form) لإرسال طلب حذف القسم بأمان عبر نظام POST --}}
-                             <form action="{{ route('departments.destroy', $dept->getId()) }}" method="POST" class="d-inline">                                
-                                @csrf {{-- رمز حماية لمنع الهجمات الثغرات الأمنية CSRF --}}
-                                @method('DELETE') {{-- إخبار Laravel بأن نوع الطلب الحقيقي هو DELETE وليس POST --}}
-                                
-                                {{-- زر الحذف ونوع التثبيت submit --}}
-                                <x-button type="submit" color="danger"
-                                    onclick="return confirm('Are you sure?')"> {{-- نافذة تأكيد تظهر للمستخدم قبل الحذف --}}
-                                    <i class="bi bi-trash-fill me-1"></i> Delete {{-- أيقونة سلة المهملات مع كلمة حذف --}}
-                                </x-button>
-                            </form>
+                             <x-delete-button :action="route('departments.destroy', $dept->getId())" />
                         </td>
                     </tr>
                 @empty

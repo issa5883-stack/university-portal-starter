@@ -22,7 +22,11 @@
 
     {{-- 4. كود PHP داخلي لحساب المعرّف القادم تقريبياً للعرض فقط (بجلب أعلى ID وزيادة 1) --}}
     @php
-        $nextId = (\Illuminate\Support\Facades\DB::table('departments')->max('id') ?? 0) + 1;
+        try {
+            $nextId = (\Illuminate\Support\Facades\DB::table('departments')->max('id') ?? 0) + 1;
+        } catch (\Exception $e) {
+            $nextId = '—';
+        }
     @endphp
 
     {{-- 5. استخدام مكون الكارت الجاهز (Component) وتحديد عنوانه الخارجي لتأطير الفورم --}}
@@ -59,7 +63,7 @@
             {{-- 10. حاوية أزرار التحكم مصفوفة بجانب بعضها مع مسافة مرنة (Gap) تفصل بينهما --}}
             <div class="d-flex gap-2">
                 {{-- زر الحفظ وهو من نوع submit ليقوم بإرسال بيانات القسم الجديد للـ Controller --}}
-                <x-button type="submit" color="primary">Save</x-button>
+                <x-save />
                 
                 {{-- زر إلغاء العملية، وهو رابط يعود بالمستخدم إلى جدول الأقسام الرئيسي --}}
                 <x-button href="/departments" color="secondary">Cancel</x-button>

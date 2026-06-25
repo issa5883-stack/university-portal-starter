@@ -52,14 +52,7 @@
                             <x-button href="{{ route('professors.edit', $professor->getId()) }}" color="warning">
                                 <i class="bi bi-pencil-fill me-1"></i> Edit
                             </x-button>
-                            <form action="{{ route('professors.destroy', $professor->getId()) }}" method="POST" class="d-inline">
-                                @csrf
-                                @method('DELETE')
-                                <x-button type="submit" color="danger"
-                                    onclick="return confirm('Are you sure?')">
-                                    <i class="bi bi-trash-fill me-1"></i> Delete
-                                </x-button>
-                            </form>
+                            <x-delete-button :action="route('professors.destroy', $professor->getId())" />
                         </td>
                     </tr>
                 @empty

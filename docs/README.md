@@ -7,6 +7,7 @@ Guides for understanding and extending the University Portal.
 | **[ARCHITECTURE.md](ARCHITECTURE.md)** | How the layers fit together (Controller → Service → DTO → Blade) and why. **Read this first.** |
 | **[ADDING-A-CRUD-MODULE.md](ADDING-A-CRUD-MODULE.md)** | Step-by-step: add a brand-new CRUD module end to end, with a full worked example (Classrooms). Also covers adding a single non-CRUD page. |
 | **[CHEATSHEET.md](CHEATSHEET.md)** | Quick reference: Artisan commands, the CRUD route map, Blade snippets, validation rules, DTO getters, CSS classes. |
+| **[AUTHENTICATION.md](AUTHENTICATION.md)** | How the built-in login system works, the `portal:seed-auth` command, and how to plug in your own login & sign-up views. |
 
 ## The 30-second version
 
