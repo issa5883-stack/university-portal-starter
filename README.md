@@ -1,109 +1,214 @@
-# University Portal — Student Starter
+# University Portal — Academic Management System
 
-Welcome! This is a partially-built Laravel application. The **back end is done for you** — your job is to build the **routes and the views** so the portal actually works in the browser.
-
-When you are finished you will have a working university management system with five modules: **Departments, Students, Courses, Professors,** and **Enrollments**.
-
-> 📚 **New to this pattern?** Read [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) to see how the pieces fit together, follow [`docs/ADDING-A-CRUD-MODULE.md`](docs/ADDING-A-CRUD-MODULE.md) for a full worked example, and keep [`docs/CHEATSHEET.md`](docs/CHEATSHEET.md) open while you build.
+A full-stack web application built with **Laravel 11** that allows university staff to manage departments, students, courses, professors, and enrollments through a clean, component-driven UI.
 
 ---
 
-## What is already provided (do NOT change these)
+## Team & Responsibilities
 
-| Layer | Files | What it does |
-| --- | --- | --- |
-| **Controllers** | `app/Http/Controllers/*Controller.php` | Receive the request, call a service, return a view |
-| **Services** | `app/Services/*Service.php` | All the data access / business logic |
-| **DTOs** | `app/DTOs/*DTO.php` | Plain objects that carry one record's data |
-| **Migrations** | `database/migrations/2025_01_01_*` | Create the database tables |
-| **Seeder** | `database/seeders/DatabaseSeeder.php` | Fills the database with sample data |
-| **Stylesheet** | `public/css/app.css` | Ready-made CSS classes you may use for styling |
-
-## What YOU build
-
-| Layer | Files | Outcome |
-| --- | --- | --- |
-| **Routes** | `routes/web.php` | Wire the 5 controllers to URLs |
-| **Layout** | `resources/views/layouts/app.blade.php` | The shared page frame (W13) |
-| **Components** | `resources/views/components/{button,form-input,card}.blade.php` | Reusable `<x-...>` tags (W14) |
-| **Module views** | `resources/views/{departments,students,courses,professors,enrollments}/{index,create,edit}.blade.php` | The 15 CRUD screens (W10) |
-
-Every one of those files already exists with a **comment inside telling you exactly what to build and what data it receives** — open them and follow the `TODO`.
+| Member | Role | Modules Implemented |
+|--------|------|---------------------|
+| **Issa** | Team Lead · UI Architecture | Core Layout, Blade Components, Departments, Professors, Enrollments |
+| **Saja** | Backend + Frontend Developer | Student Management (CRUD) |
+| **Asmaa** | Backend + Frontend Developer | Course Management (CRUD) |
 
 ---
 
-## Getting started
+## Modules
+
+| Module | Create | Read | Update | Delete |
+|--------|:------:|:----:|:------:|:------:|
+| Departments | ✅ | ✅ | ✅ | ✅ |
+| Students | ✅ | ✅ | ✅ | ✅ |
+| Courses | ✅ | ✅ | ✅ | ✅ |
+| Professors | ✅ | ✅ | ✅ | ✅ |
+| Enrollments | ✅ | ✅ | ✅ | ✅ |
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| Framework | Laravel 11 |
+| Templating | Blade (Layouts + Components) |
+| Database | MySQL / SQLite |
+| Frontend | Bootstrap 5.3 · Bootstrap Icons |
+| Auth | Laravel Session Auth |
+| Language | PHP 8.2+ |
+
+---
+
+## Architecture
+
+The project follows a clean **Controller → Service → DTO** pattern:
+
+```
+HTTP Request
+    └── Controller        receives input, calls service, returns view
+         └── Service      business logic, database queries
+              └── DTO     read-only data object passed to the Blade view
+```
+
+This keeps views free of business logic and controllers thin.
+
+---
+
+## Reusable Blade Components
+
+Built by **Issa** and shared across every module (W14):
+
+| Component | Tag | Purpose |
+|-----------|-----|---------|
+| Card | `<x-card title="...">` | Wraps every page section in a styled panel |
+| Button | `<x-button href="..." color="...">` | Link or submit button (primary / secondary / danger) |
+| Form Input | `<x-form name="..." label="...">` | Labeled input with validation error display |
+| Save | `<x-save />` | Pre-styled submit button |
+| Create Button | `<x-create-button :href="...">` | "Add New" action link |
+| Edit Button | `<x-edit-button :href="...">` | "Edit" action link |
+| Delete Button | `<x-delete-button :action="...">` | Self-contained delete form with confirmation |
+
+---
+
+## Project Structure
+
+```
+app/
+├── Http/Controllers/
+│   ├── AuthController.php
+│   ├── DepartmentController.php    ← Issa
+│   ├── StudentController.php       ← Saja
+│   ├── CourseController.php        ← Asmaa
+│   ├── ProfessorController.php     ← Issa
+│   └── EnrollmentController.php    ← Issa
+├── Services/
+│   ├── DepartmentService.php
+│   ├── StudentService.php
+│   ├── CourseService.php
+│   ├── ProfessorService.php
+│   └── EnrollmentService.php
+└── DTOs/
+    ├── DepartmentDTO.php
+    ├── StudentDTO.php
+    ├── CourseDTO.php
+    ├── ProfessorDTO.php
+    └── EnrollmentDTO.php
+
+resources/views/
+├── layouts/
+│   └── app.blade.php               ← Issa (shared master layout)
+├── components/                     ← Issa (shared UI components)
+│   ├── button.blade.php
+│   ├── card.blade.php
+│   ├── form.blade.php
+│   ├── save.blade.php
+│   ├── create-button.blade.php
+│   ├── edit-button.blade.php
+│   └── delete-button.blade.php
+├── auth/
+│   ├── login.blade.php
+│   └── register.blade.php
+├── departments/                    ← Issa
+│   ├── index.blade.php
+│   ├── create.blade.php
+│   └── edit.blade.php
+├── students/                       ← Saja
+│   ├── index.blade.php
+│   ├── create.blade.php
+│   └── edit.blade.php
+├── courses/                        ← Asmaa
+│   ├── index.blade.php
+│   ├── create.blade.php
+│   └── edit.blade.php
+├── professors/                     ← Issa
+│   ├── index.blade.php
+│   ├── create.blade.php
+│   └── edit.blade.php
+└── enrollments/                    ← Issa
+    ├── index.blade.php
+    ├── create.blade.php
+    └── edit.blade.php
+```
+
+---
+
+## Setup & Installation
+
+### Requirements
+
+- PHP >= 8.2
+- Composer
+- MySQL or SQLite
+- Laravel 11
+
+### Steps
 
 ```bash
-cd university-portal-starter
+# 1. Clone the repository
+git clone https://github.com/issa5883-stack/University-Portal-Starter.git
+cd University-Portal-Starter
 
-# 1. install PHP dependencies
+# 2. Install PHP dependencies
 composer install
 
-# 2. create your environment file and generate the app key
+# 3. Copy the environment file
 cp .env.example .env
+
+# 4. Generate the application key
 php artisan key:generate
 
-# 3. create the (empty) SQLite database file
-#    On Windows, just create an empty file at database/database.sqlite
+# 5. Create the SQLite database file (or configure MySQL in .env)
 touch database/database.sqlite
 
-# 4. create the tables and load the sample data
+# 6. Run migrations and seed sample data
 php artisan migrate:fresh --seed
 
-# 5. run the app
+# 7. Start the development server
 php artisan serve
 ```
 
-Then open **http://127.0.0.1:8000**. (Pages will be blank until you build the views — that's expected!)
+Open **http://127.0.0.1:8000** in your browser.
+
+### Default Login
+
+After seeding the database, log in with:
+
+```
+Email:    admin@university.edu
+Password: password
+```
+
+> You can also register a new account from the **Register** page.
 
 ---
 
-## Your task list
+## Data Reference
 
-1. **Routes** (`routes/web.php`) — register a resource route for each controller. The resource names must be `departments`, `students`, `courses`, `professors`, `enrollments`.
-2. **Layout** — build `layouts/app.blade.php` with a nav bar and `@yield('content')`.
-3. **Components** — build `<x-button>`, `<x-form-input>`, `<x-card>`.
-4. **Departments** → **Students** → **Courses** → **Professors** → **Enrollments** — build the `index`, `create`, and `edit` view for each. Do them in that order; the pattern repeats.
+Views receive DTO objects. Read data using getter methods:
 
-Tip: get **Departments** fully working first (routes + layout + components + its 3 views). Once one module clicks, the other four are the same shape.
-
----
-
-## Data contract (quick reference)
-
-Your views receive **objects** (DTOs) and **arrays**. Read each value with a getter method, e.g. `{{ $student->getName() }}`.
-
-**DTO getters**
-
-| DTO | Methods |
-| --- | --- |
-| `DepartmentDTO` | `getId() getName()` |
-| `StudentDTO` | `getId() getName() getEmail() getStudentNumber() getDepartmentId() getDepartmentName()` |
-| `CourseDTO` | `getId() getTitle() getCourseCode() getCreditHours() getDepartmentId() getDepartmentName()` |
-| `ProfessorDTO` | `getId() getName() getEmail() getDepartmentId() getDepartmentName()` |
-| `EnrollmentDTO` | `getId() getStudentId() getCourseId() getGrade() getStudentName() getCourseTitle() getCourseCode()` |
-
-**Form field names** (what each `store`/`update` expects — use them as your input `name=""`)
-
-| Module | Fields |
-| --- | --- |
-| Departments | `name` |
-| Students | `name`, `email`, `student_number`, `department_id` |
-| Courses | `title`, `course_code`, `credit_hours`, `department_id` |
-| Professors | `name`, `email`, `department_id` |
-| Enrollments | `student_id`, `course_id`, `grade` |
-
-**Remember for every form:** add `@csrf`. For edit/update forms also add `@method('PUT')`, and for delete buttons use a small `POST` form with `@method('DELETE')`.
+| DTO | Available Getters |
+|-----|-------------------|
+| `DepartmentDTO` | `getId()` `getName()` |
+| `StudentDTO` | `getId()` `getName()` `getEmail()` `getStudentNumber()` `getDepartmentId()` `getDepartmentName()` |
+| `CourseDTO` | `getId()` `getTitle()` `getCourseCode()` `getCreditHours()` `getDepartmentId()` `getDepartmentName()` |
+| `ProfessorDTO` | `getId()` `getName()` `getEmail()` `getDepartmentId()` `getDepartmentName()` |
+| `EnrollmentDTO` | `getId()` `getStudentId()` `getCourseId()` `getGrade()` `getStudentName()` `getCourseTitle()` `getCourseCode()` |
 
 ---
 
-## What you are being assessed on (ILOs)
+## ILOs Covered
 
-- **W10** — processing form data and looping over arrays with `@foreach` in your views.
-- **W11** — (provided) OOP Controllers, Services and DTOs — read them to see encapsulation in action.
-- **W12** — Laravel + MVC: your routes connect URLs to the provided controllers.
-- **W13** — your `layouts/app.blade.php` master layout, extended by every view.
-- **W14** — your reusable `<x-button>`, `<x-form-input>`, `<x-card>` components.
+| Week | Concept | Where Applied |
+|------|---------|---------------|
+| W10 | Blade `@foreach`, form data processing | All `index` / `create` / `edit` views |
+| W11 | OOP — Service & DTO classes | `app/Services/` · `app/DTOs/` |
+| W12 | Laravel MVC & Artisan | All controllers, `routes/web.php` |
+| W13 | Blade layouts & `@extends` | `layouts/app.blade.php` extended by every view |
+| W14 | Blade reusable components | `resources/views/components/` |
 
-Good luck!
+---
+
+## License
+
+Built as a university course project — PHP Web Development.  
+© 2025 Issa · Saja · Asmaa. All rights reserved.
