@@ -22,12 +22,9 @@
 
 @section('content')
 
-<link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
 <x-card title="Edit Student">
 
     <form method="POST" action="{{ route('students.update', $student->getId()) }}">
-
         @csrf
         @method('PUT')
 
@@ -35,7 +32,6 @@
             name="name"
             label="Student Name"
             :value="$student->getName()"
-            required
         />
 
         <x-form
@@ -43,7 +39,6 @@
             label="Email"
             type="email"
             :value="$student->getEmail()"
-            required
         />
 
         <x-form
@@ -53,8 +48,7 @@
         />
 
         <div class="mb-3">
-
-            <label class="form-label">Department</label>
+            <label class="field-label">Department</label>
 
             <select name="department_id" class="form-control">
 
@@ -63,7 +57,7 @@
                 @foreach ($departmentOptions as $id => $name)
 
                     <option value="{{ $id }}"
-                        @if ($student->getDepartmentId() == $id) selected @endif
+                        @if($student->getDepartmentId() == $id) selected @endif
                     >
                         {{ $name }}
                     </option>
@@ -71,14 +65,17 @@
                 @endforeach
 
             </select>
-
         </div>
 
-        <x-button type="submit">
-            Update Student
-        </x-button>
+        <div class="d-flex gap-2">
+            <x-save />
+            <x-button href="{{ route('students.index') }}" color="secondary">
+                Cancel
+            </x-button>
+        </div>
 
     </form>
 
 </x-card>
+
 @endsection

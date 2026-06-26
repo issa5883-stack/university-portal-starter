@@ -18,23 +18,17 @@
 
     TODO: build the view here.
 --}}
-
 @extends('layouts.app')
 
 @section('content')
 
-<link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
 <x-card title="Students List">
 
     <div class="mb-3">
-        <x-button :href="route('students.create')">
-            + New Student
-        </x-button>
+        <x-create-button :href="route('students.create')" />
     </div>
 
-    <table class="table">
-
+    <table class="table portal-table mb-0">
         <thead>
             <tr>
                 <th>Name</th>
@@ -47,47 +41,33 @@
 
         <tbody>
 
-        @foreach ($students as $student)
-
+        @forelse($students as $student)
             <tr>
-
                 <td>{{ $student->getName() }}</td>
                 <td>{{ $student->getEmail() }}</td>
                 <td>{{ $student->getStudentNumber() }}</td>
                 <td>{{ $student->getDepartmentName() ?? 'No Department' }}</td>
 
-                <td>
+                <td class="d-flex gap-2">
 
-                    <x-button
-                        color="warning"
-                        :href="route('students.edit', $student->getId())"
-                    >
-                        Edit
-                    </x-button>
+                    <x-edit-button :href="route('students.edit', $student->getId())" />
 
-                    <form
-                        method="POST"
-                        action="{{ route('students.destroy', $student->getId()) }}"
-                        style="display:inline;"
-                    >
-                        @csrf
-                        @method('DELETE')
-
-                        <x-button color="danger" type="submit">
-                            Delete
-                        </x-button>
-
-                    </form>
+                    <x-delete-button :action="route('students.destroy', $student->getId())" />
 
                 </td>
-
             </tr>
 
-        @endforeach
+        @empty
+            <tr>
+                <td colspan="5" class="text-center text-muted">
+                    No students found.
+                </td>
+            </tr>
+        @endforelse
 
         </tbody>
-
     </table>
 
 </x-card>
+
 @endsection

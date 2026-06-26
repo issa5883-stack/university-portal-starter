@@ -54,7 +54,7 @@ class AuthController extends Controller
     public function showRegister()
     {
         if (Auth::check()) {
-            return redirect()->route('dashboard');
+            return redirect()->route('departments.index');
         }
 
         return view('auth.register');
