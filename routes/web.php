@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\ProfessorController;
@@ -50,8 +49,6 @@ Route::post('/register',[AuthController::class, 'register']);
 Route::get('/', function () {
     return redirect()->route('departments.index');
 });
-// Dashboard route — صفحة الإحصائيات الرئيسية
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::resource('departments', DepartmentController::class)->except('show');
 Route::resource('students', StudentController::class)->except('show');
 Route::resource('courses', CourseController::class)->except('show');

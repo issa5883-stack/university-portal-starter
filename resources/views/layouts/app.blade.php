@@ -56,11 +56,6 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto gap-2 align-items-center">
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('dashboard*') ? 'active' : '' }}" href="/dashboard">
-                        <i class="bi bi-speedometer2 me-1"></i> Dashboard
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link {{ request()->is('departments*') ? 'active' : '' }}" href="/departments">
                         <i class="bi bi-building me-1"></i> Departments
                     </a>
