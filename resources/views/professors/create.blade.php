@@ -58,7 +58,7 @@
             </div>
 
             <div class="d-flex gap-2">
-                <x-button type="submit" color="primary">Save</x-button>
+                <x-save />
                 <x-button href="{{ route('professors.index') }}" color="secondary">Cancel</x-button>
             </div>
 

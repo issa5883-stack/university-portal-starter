@@ -72,10 +72,15 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ request()->is('professors*') ? 'active' : '' }}" href="/professors">
-                         <i class="bi bi-person-badge me-1"></i> Professors
+                        <i class="bi bi-person-badge me-1"></i> Professors
                     </a>
-                        </li>
-                
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('enrollments*') ? 'active' : '' }}" href="/enrollments">
+                        <i class="bi bi-journal-check me-1"></i> Enrollments
+                    </a>
+                </li>
+
                 {{-- Profile Dropdown Menu in Navbar --}}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle {{ request()->is('profile*') ? 'active' : '' }}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -89,9 +94,12 @@
                         </li>
                         <li><hr class="dropdown-divider"></li>
                         <li>
-                            <a class="dropdown-item" href="/login">
-                                <i class="bi bi-box-arrow-in-right me-2"></i> Login
-                            </a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="dropdown-item text-danger">
+                                    <i class="bi bi-box-arrow-right me-2"></i> Log out
+                                </button>
+                            </form>
                         </li>
                     </ul>
                 </li>
@@ -150,7 +158,7 @@
             <span class="footer-copy">
                 &copy; {{ date('Y') }} University Portal. All rights reserved.
             </span>
-            <a href="https://github.com/issa5883-stack/University-Portal"
+            <a href="https://github.com/issa5883-stack/University-Portal-Starter"
                target="_blank" class="footer-github">
                 <i class="bi bi-github me-1"></i> View on GitHub
             </a>
@@ -161,6 +169,7 @@
 
 {{-- ── Scripts ── --}}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 
 </body>

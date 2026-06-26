@@ -28,6 +28,10 @@ class DatabaseSeeder extends Seeder
         mt_srand(20260607); // reproducible data on every run
 
         $now = now();
+
+        // Login accounts live in their own seeder so they can be (re)created
+        // on their own with `php artisan portal:seed-auth`.
+        $this->call(UserSeeder::class);
         $chunk = 100; // keep each INSERT under SQLite's bound-parameter limit
 
         // Re-runnable: wipe in FK-safe order.

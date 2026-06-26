@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\DepartmentService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /**
  * DepartmentController (Student 1, Module B).

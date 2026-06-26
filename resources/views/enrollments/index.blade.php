@@ -1,22 +1,47 @@
-{{--
-    YOUR TASK (W10 + W13):  list every enrollment.
+@extends('layouts.app')
+@section('title', 'Enrollments')
+@section('content')
 
-    The controller passes in:
-        $enrollments  — an array of App\DTOs\EnrollmentDTO
+    <x-card title="All Enrollments">
 
-    Each EnrollmentDTO gives you:
-        getId(), getStudentId(), getCourseId(), getGrade(),
-        getStudentName(), getCourseTitle(), getCourseCode()
+        @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
 
-    Show each enrollment in a readable way, e.g.
-        "Alice Johnson  —  Web Development (CS305)  —  grade: A"
-    Note getGrade() may be null (not graded yet).
+        <div class="mb-3">
+            <x-create-button :href="route('enrollments.create')">Add Enrollment</x-create-button>
+        </div>
 
-    Per row add:
-        - an "Edit" link    -> route('enrollments.edit', $enrollment->getId())
-        - a "Delete/Drop" <form> (POST + @csrf + @method('DELETE'))
-              action -> route('enrollments.destroy', $enrollment->getId())
-    Plus a "New Enrollment" link -> route('enrollments.create').
+        <table class="table portal-table mb-0">
+            <thead>
+                <tr>
+                    <th width="60">ID</th>
+                    <th>Student</th>
+                    <th>Course</th>
+                    <th>Grade</th>
+                    <th width="200">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($enrollments as $enrollment)
+                    <tr>
+                        <td>{{ $enrollment->getId() }}</td>
+                        <td>{{ $enrollment->getStudentName() }}</td>
+                        <td>{{ $enrollment->getCourseTitle() }} ({{ $enrollment->getCourseCode() }})</td>
+                        <td>{{ $enrollment->getGrade() ?? '—' }}</td>
+                        <td>
+                            <x-edit-button :href="route('enrollments.edit', $enrollment->getId())" />
+                            <x-delete-button :action="route('enrollments.destroy', $enrollment->getId())" />
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="5" class="text-center text-muted">No enrollments found.</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
 
-    TODO: build the view here.
---}}
+    </x-card>
+
+@endsection
