@@ -72,10 +72,15 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ request()->is('professors*') ? 'active' : '' }}" href="/professors">
-                         <i class="bi bi-person-badge me-1"></i> Professors
+                        <i class="bi bi-person-badge me-1"></i> Professors
                     </a>
-                        </li>
-                
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('enrollments*') ? 'active' : '' }}" href="/enrollments">
+                        <i class="bi bi-journal-check me-1"></i> Enrollments
+                    </a>
+                </li>
+
                 {{-- Profile Dropdown Menu in Navbar --}}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle {{ request()->is('profile*') ? 'active' : '' }}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -164,6 +169,7 @@
 
 {{-- ── Scripts ── --}}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 
 </body>
