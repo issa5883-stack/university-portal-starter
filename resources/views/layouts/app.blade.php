@@ -158,7 +158,7 @@
             <span class="footer-copy">
                 &copy; {{ date('Y') }} University Portal. All rights reserved.
             </span>
-            <a href="https://github.com/issa5883-stack/University-Portal"
+            <a href="https://github.com/issa5883-stack/University-Portal-Starter"
                target="_blank" class="footer-github">
                 <i class="bi bi-github me-1"></i> View on GitHub
             </a>

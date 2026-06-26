@@ -54,7 +54,7 @@ class AuthController extends Controller
     public function showRegister()
     {
         if (Auth::check()) {
-            return redirect()->route('dashboard');
+            return redirect()->route('departments.index');
         }
 
         return view('auth.register');
@@ -78,7 +78,7 @@ class AuthController extends Controller
         Auth::login($user);
         $request->session()->regenerate();
 
-        return redirect()->route('dashboard');
+        return redirect()->route('departments.index');
     }
 
     /** Log the user out and invalidate the session. */
