@@ -18,3 +18,56 @@
 
     TODO: build the view here.
 --}}
+@extends('layouts.app')
+
+@section('content')
+
+<x-card title="Students List">
+
+    <div class="mb-3">
+        <x-create-button :href="route('students.create')" />
+    </div>
+
+    <table class="table portal-table mb-0">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Student Number</th>
+                <th>Department</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        @forelse($students as $student)
+            <tr>
+                <td>{{ $student->getName() }}</td>
+                <td>{{ $student->getEmail() }}</td>
+                <td>{{ $student->getStudentNumber() }}</td>
+                <td>{{ $student->getDepartmentName() ?? 'No Department' }}</td>
+
+                <td class="d-flex gap-2">
+
+                    <x-edit-button :href="route('students.edit', $student->getId())" />
+
+                    <x-delete-button :action="route('students.destroy', $student->getId())" />
+
+                </td>
+            </tr>
+
+        @empty
+            <tr>
+                <td colspan="5" class="text-center text-muted">
+                    No students found.
+                </td>
+            </tr>
+        @endforelse
+
+        </tbody>
+    </table>
+
+</x-card>
+
+@endsection
