@@ -18,3 +18,59 @@
 
     TODO: build the form here.
 --}}
+
+@extends('layouts.app')
+
+@section('content')
+
+<link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
+<x-card title="Add New Student">
+
+    <form method="POST" action="{{ route('students.store') }}">
+
+        @csrf
+
+        <x-form
+            name="name"
+            label="Student Name"
+            required
+        />
+
+        <x-form
+            name="email"
+            label="Email"
+            type="email"
+            required
+        />
+
+        <x-form
+            name="student_number"
+            label="Student Number"
+        />
+
+        <div class="mb-3">
+            <label class="form-label">Department</label>
+
+            <select name="department_id" class="form-control">
+
+                <option value="">Select Department</option>
+
+                @foreach ($departmentOptions as $id => $name)
+                    <option value="{{ $id }}">
+                        {{ $name }}
+                    </option>
+                @endforeach
+
+            </select>
+
+        </div>
+
+        <x-button type="submit">
+            Save Student
+        </x-button>
+
+    </form>
+
+</x-card>
+@endsection
