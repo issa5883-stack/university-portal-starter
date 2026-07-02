@@ -35,11 +35,44 @@
             </div>
         </div>
 
-        <x-form 
+        <x-form
             name="title"
             label="Course Name"
             :value="$course->getTitle()"
         />
+
+        <x-form
+            name="course_code"
+            label="Course Code"
+            :value="$course->getCourseCode()"
+            required
+        />
+
+        <x-form
+            name="credit_hours"
+            label="Credit Hours"
+            type="number"
+            :value="$course->getCreditHours()"
+            min="1"
+            max="12"
+            required
+        />
+
+        {{-- Department Dropdown --}}
+        <div class="mb-3">
+            <label for="department_id" class="field-label">Department</label>
+            <select name="department_id" id="department_id" class="form-control rounded-3 border-0 shadow-sm @error('department_id') is-invalid @enderror">
+                <option value="">— No Department —</option>
+                @foreach($departmentOptions as $id => $name)
+                    <option value="{{ $id }}" {{ old('department_id', $course->getDepartmentId()) == $id ? 'selected' : '' }}>
+                        {{ $name }}
+                    </option>
+                @endforeach
+            </select>
+            @error('department_id')
+                <div class="invalid-feedback d-block">{{ $message }}</div>
+            @enderror
+        </div>
 
         <div class="d-flex gap-2">
             <x-button type="submit" color="primary">Update</x-button>

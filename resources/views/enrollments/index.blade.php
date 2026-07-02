@@ -12,6 +12,13 @@
             <x-create-button :href="route('enrollments.create')">Add Enrollment</x-create-button>
         </div>
 
+        <div class="mb-3 table-search">
+            <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                <input type="search" id="portalSearch" class="form-control" placeholder="Search enrollments...">
+            </div>
+        </div>
+
         <table class="table portal-table mb-0">
             <thead>
                 <tr>
@@ -28,7 +35,13 @@
                         <td>{{ $enrollment->getId() }}</td>
                         <td>{{ $enrollment->getStudentName() }}</td>
                         <td>{{ $enrollment->getCourseTitle() }} ({{ $enrollment->getCourseCode() }})</td>
-                        <td>{{ $enrollment->getGrade() ?? '—' }}</td>
+                        <td>
+                            @if($enrollment->getGrade())
+                                {{ $enrollment->getGrade() }}
+                            @else
+                                <span class="text-danger">—</span>
+                            @endif
+                        </td>
                         <td>
                             <x-edit-button :href="route('enrollments.edit', $enrollment->getId())" />
                             <x-delete-button :action="route('enrollments.destroy', $enrollment->getId())" />
@@ -36,7 +49,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" class="text-center text-muted">No enrollments found.</td>
+                        <td colspan="5" class="text-center text-danger">No enrollments found.</td>
                     </tr>
                 @endforelse
             </tbody>

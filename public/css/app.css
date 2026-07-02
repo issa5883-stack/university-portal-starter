@@ -53,6 +53,23 @@ body {
 .nav-link:hover,
 .nav-link.active  { color: var(--accent) !important; background-color: rgba(200,168,75,0.12); }
 
+/* ── Table search bar (below the "Add" button, filters the table below it) ── */
+.table-search {
+    max-width: 320px;
+}
+.table-search .input-group-text {
+    background: var(--cream-surface);
+    border: 1px solid var(--cream-border);
+    color: var(--primary-mid);
+}
+.table-search .form-control {
+    border: 1px solid var(--cream-border);
+}
+.table-search .form-control:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 0.2rem rgba(200,168,75,0.2);
+}
+
 /* ══════════════════════════════
    PAGE CARD  (departments, students…)
    ══════════════════════════════ */

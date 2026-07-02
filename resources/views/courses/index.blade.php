@@ -28,11 +28,20 @@
         </x-button>
     </div>
 
+    <div class="mb-3 table-search">
+        <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+            <input type="search" id="portalSearch" class="form-control" placeholder="Search courses...">
+        </div>
+    </div>
+
     <table class="table portal-table mb-0">
         <thead>
             <tr>
                 <th width="60">ID</th>
                 <th>Course Name</th>
+                <th>Course Code</th>
+                <th>Credit Hours</th>
                 <th width="200">Actions</th>
             </tr>
         </thead>
@@ -41,6 +50,8 @@
                 <tr>
                     <td>{{ $course->getId() }}</td>
                     <td>{{ $course->getTitle() }}</td>
+                    <td>{{ $course->getCourseCode() }}</td>
+                    <td>{{ $course->getCreditHours() }}</td>
                     <td>
                         <x-button href="{{ route('courses.edit', $course->getId()) }}" color="warning">
                             <i class="bi bi-pencil-fill me-1"></i> Edit
@@ -57,7 +68,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="3" class="text-center text-muted">No courses found.</td>
+                    <td colspan="5" class="text-center text-danger">No courses found.</td>
                 </tr>
             @endforelse
         </tbody>

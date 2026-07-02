@@ -48,9 +48,17 @@
         {{-- 6. مسافة سفلية (Margin Bottom) لوضع زر إضافة قسم جديد --}}
         <div class="mb-3">
             {{-- زر يستخدم مكون مخصّص ينقلك إلى رابط صفحة إنشاء قسم جديد --}}
-            <x-button href="{{ route('departments.create') }}" color="success">                
+            <x-button href="{{ route('departments.create') }}" color="success">
                 <i class="bi bi-plus-lg me-1"></i> Add Department {{-- أيقونة زائد مع النص --}}
             </x-button>
+        </div>
+
+        {{-- شريط البحث: كيفلتري صفوف الجدول لي تحته أوتوماتيك --}}
+        <div class="mb-3 table-search">
+            <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                <input type="search" id="portalSearch" class="form-control" placeholder="Search departments...">
+            </div>
         </div>
 
         {{-- 7. إنشاء الجدول لعرض البيانات وتطبيق كلاسات التنسيق عليه --}}
@@ -85,7 +93,7 @@
                 @empty
                     {{-- 10. هذا السطر يظهر فقط إذا كانت مصفوفة الأقسام فارغة تماماً ولا يوجد بها بيانات --}}
                     <tr>
-                        <td colspan="3" class="text-center text-muted">No departments found.</td>
+                        <td colspan="3" class="text-center text-danger">No departments found.</td>
                     </tr>
                 @endforelse
             </tbody>

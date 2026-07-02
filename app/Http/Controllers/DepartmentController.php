@@ -38,7 +38,16 @@ class DepartmentController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                'regex:/^[\pL\s]+$/u',
+                'unique:departments,name',
+            ],
+        ], [
+            'name.regex' => 'Department name may only contain letters.',
+            'name.unique' => 'This department already exists.',
         ]);
 
         $this->departments->create($data);
@@ -63,7 +72,16 @@ class DepartmentController extends Controller
     public function update(Request $request, int $id)
     {
         $data = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                'regex:/^[\pL\s]+$/u',
+                'unique:departments,name,'.$id,
+            ],
+        ], [
+            'name.regex' => 'Department name may only contain letters.',
+            'name.unique' => 'This department already exists.',
         ]);
 
         $this->departments->update($id, $data);

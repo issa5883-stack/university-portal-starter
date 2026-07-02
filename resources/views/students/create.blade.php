@@ -29,7 +29,7 @@
 
         <x-form name="name" label="Student Name" placeholder="Enter student name" />
         <x-form name="email" label="Email" type="email" placeholder="Enter email" />
-        <x-form name="student_number" label="Student Number" placeholder="Optional" />
+        <x-form name="student_number" label="Student Number" placeholder="Enter student number" />
 
         <div class="mb-3">
             <label class="field-label">Department</label>

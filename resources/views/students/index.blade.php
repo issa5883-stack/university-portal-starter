@@ -25,7 +25,14 @@
 <x-card title="Students List">
 
     <div class="mb-3">
-        <x-create-button :href="route('students.create')" />
+        <x-create-button :href="route('students.create')" > Add Student </x-create-button>
+    </div>
+
+    <div class="mb-3 table-search">
+        <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+            <input type="search" id="portalSearch" class="form-control" placeholder="Search students...">
+        </div>
     </div>
 
     <table class="table portal-table mb-0">
@@ -33,7 +40,7 @@
             <tr>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Student Number</th>
+                <th>Student ID</th>
                 <th>Department</th>
                 <th>Actions</th>
             </tr>
@@ -46,7 +53,13 @@
                 <td>{{ $student->getName() }}</td>
                 <td>{{ $student->getEmail() }}</td>
                 <td>{{ $student->getStudentNumber() }}</td>
-                <td>{{ $student->getDepartmentName() ?? 'No Department' }}</td>
+                <td>
+                    @if($student->getDepartmentName())
+                        {{ $student->getDepartmentName() }}
+                    @else
+                        <span class="text-danger">No Department</span>
+                    @endif
+                </td>
 
                 <td class="d-flex gap-2">
 
@@ -59,7 +72,7 @@
 
         @empty
             <tr>
-                <td colspan="5" class="text-center text-muted">
+                <td colspan="5" class="text-center text-danger">
                     No students found.
                 </td>
             </tr>

@@ -7,35 +7,39 @@
         <form action="{{ route('enrollments.store') }}" method="POST">
             @csrf
 
-            {{-- Student Dropdown --}}
+            {{-- Student Search --}}
             <div class="mb-3">
-                <label for="student_id" class="field-label">Student</label>
-                <select name="student_id" id="student_id" class="form-control rounded-3 border-0 shadow-sm @error('student_id') is-invalid @enderror">
-                    <option value="">— Select Student —</option>
+                <label for="student_search" class="field-label">Student</label>
+                <input type="text" id="student_search" list="studentList" autocomplete="off"
+                       class="form-control rounded-3 border-0 shadow-sm @error('student_id') is-invalid @enderror"
+                       placeholder="Type a student name..."
+                       value="{{ $studentOptions[old('student_id')] ?? '' }}">
+                <datalist id="studentList">
                     @foreach($studentOptions as $id => $name)
-                        <option value="{{ $id }}" {{ old('student_id') == $id ? 'selected' : '' }}>
-                            {{ $name }}
-                        </option>
+                        <option data-id="{{ $id }}" value="{{ $name }}"></option>
                     @endforeach
-                </select>
+                </datalist>
+                <input type="hidden" name="student_id" id="student_id" value="{{ old('student_id') }}">
                 @error('student_id')
-                    <div class="invalid-feedback">{{ $message }}</div>
+                    <div class="invalid-feedback d-block">{{ $message }}</div>
                 @enderror
             </div>
 
-            {{-- Course Dropdown --}}
+            {{-- Course Search --}}
             <div class="mb-3">
-                <label for="course_id" class="field-label">Course</label>
-                <select name="course_id" id="course_id" class="form-control rounded-3 border-0 shadow-sm @error('course_id') is-invalid @enderror">
-                    <option value="">— Select Course —</option>
+                <label for="course_search" class="field-label">Course</label>
+                <input type="text" id="course_search" list="courseList" autocomplete="off"
+                       class="form-control rounded-3 border-0 shadow-sm @error('course_id') is-invalid @enderror"
+                       placeholder="Type a course name or code..."
+                       value="{{ $courseOptions[old('course_id')] ?? '' }}">
+                <datalist id="courseList">
                     @foreach($courseOptions as $id => $title)
-                        <option value="{{ $id }}" {{ old('course_id') == $id ? 'selected' : '' }}>
-                            {{ $title }}
-                        </option>
+                        <option data-id="{{ $id }}" value="{{ $title }}"></option>
                     @endforeach
-                </select>
+                </datalist>
+                <input type="hidden" name="course_id" id="course_id" value="{{ old('course_id') }}">
                 @error('course_id')
-                    <div class="invalid-feedback">{{ $message }}</div>
+                    <div class="invalid-feedback d-block">{{ $message }}</div>
                 @enderror
             </div>
 
@@ -54,5 +58,12 @@
         </form>
 
     </x-card>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            bindSearchableSelect('student_search', 'student_id', 'studentList');
+            bindSearchableSelect('course_search', 'course_id', 'courseList');
+        });
+    </script>
 
 @endsection

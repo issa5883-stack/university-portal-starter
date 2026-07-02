@@ -31,6 +31,13 @@
             </x-button>
         </div>
 
+        <div class="mb-3 table-search">
+            <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                <input type="search" id="portalSearch" class="form-control" placeholder="Search professors...">
+            </div>
+        </div>
+
         <table class="table portal-table mb-0">
             <thead>
                 <tr>
@@ -47,7 +54,13 @@
                         <td>{{ $professor->getId() }}</td>
                         <td>{{ $professor->getName() }}</td>
                         <td>{{ $professor->getEmail() }}</td>
-                        <td>{{ $professor->getDepartmentName() ?? '—' }}</td>
+                        <td>
+                            @if($professor->getDepartmentName())
+                                {{ $professor->getDepartmentName() }}
+                            @else
+                                <span class="text-danger">—</span>
+                            @endif
+                        </td>
                         <td>
                             <x-button href="{{ route('professors.edit', $professor->getId()) }}" color="warning">
                                 <i class="bi bi-pencil-fill me-1"></i> Edit
@@ -57,7 +70,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" class="text-center text-muted">No professors found.</td>
+                        <td colspan="5" class="text-center text-danger">No professors found.</td>
                     </tr>
                 @endforelse
             </tbody>
